@@ -6,7 +6,7 @@ import rospy
 from std_msgs.msg import String
 
 
-class SpeechToText(object):
+class SpeechToTextNode(object):
     def __init__(self):
         self.topic_audio_path = rospy.get_param("topic_audio_path", "/respeaker/audio_path")
         self.topic_text = rospy.get_param("topic_text", "~text")
@@ -48,5 +48,6 @@ class SpeechToText(object):
 
 if __name__ == "__main__":
     rospy.init_node("voice")
-    SpeechToText()
+    SpeechToTextNode()
+    rospy.loginfo(rospy.get_name() + " OK.")
     rospy.spin()
