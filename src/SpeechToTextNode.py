@@ -41,7 +41,7 @@ class SpeechToTextNode(object):
             rospy.logerr("Could not request results from Voice Recognition service; {0}".format(e))
         rospy.loginfo(f"{path}: {text}")
         if len(text) > 0:
-            self.pub_text.publish(text + "-" + direction)
+            self.pub_text.publish(text + "-" + str(direction))
         else:
             rospy.logerr("nothing")
 

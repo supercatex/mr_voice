@@ -10,6 +10,7 @@ import numpy as np
 import wave
 import rospy
 from std_msgs.msg import String
+import os
 
 
 PARAMETERS = {
