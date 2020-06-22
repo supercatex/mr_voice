@@ -286,8 +286,8 @@ def on_audio(data, channel):
 if __name__ == "__main__":
     rospy.init_node("respeaker")
 
-    max_buf = rospy.get_param("~buffer_size", 10)
-    audio_dir = rospy.get_param("~audio_directory", "/tmp/speech")
+    max_buf = rospy.get_param("buffer_size", 10)
+    audio_dir = rospy.get_param("audio_directory", "/tmp/speech")
     pub = rospy.Publisher("~audio_path", String, queue_size=1)
 
     if not os.path.exists(audio_dir):
