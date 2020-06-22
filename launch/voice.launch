@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="mr_voice" type="SpeakerNode.py" name="speaker" />
+</launch>
