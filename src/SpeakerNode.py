@@ -9,7 +9,7 @@ class Speaker(object):
     def __init__(self, rate: int = 170, volume: float = 1.0, lang: str = "en-US"):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", rate)
-        self.engine.setProperty("volume", volumne)
+        self.engine.setProperty("volume", volume)
         self.engine.setProperty("voice", lang)
 
         self.engine.connect('started-utterance', self.on_start)
