@@ -6,11 +6,11 @@ from std_msgs.msg import String
 
 
 class Speaker(object):
-    def __init__(self):
+    def __init__(self, rate: int = 170, volume: float = 1.0, lang: str = "en-US"):
         self.engine = pyttsx3.init()
-        self.engine.setProperty("rate", 170)
-        self.engine.setProperty("volume", 1.0)
-        self.engine.setProperty("voice", "en-us")
+        self.engine.setProperty("rate", rate)
+        self.engine.setProperty("volume", volumne)
+        self.engine.setProperty("voice", lang)
 
         self.engine.connect('started-utterance', self.on_start)
         self.engine.connect('started-word', self.on_word)
@@ -41,10 +41,14 @@ class Speaker(object):
 
 class SpeakerNode(object):
     def __init__(self):
-        self.speaker = Speaker()
-
         self.param_is_saying = "~is_saying"
         self.topic_say = "~say"
+
+        self.rate = rospy.get_param("rate", 170)
+        self.volume = rospy.get_param("volume", 1.0)
+        self.lang = rospy.get_param("lang", "en-US")
+
+        self.speaker = Speaker(self.rate, self.volume, self.lang)
 
         rospy.set_param(self.param_is_saying, False)
         rospy.Subscriber(self.topic_say, String, self.callback_say)
