@@ -4,6 +4,7 @@ import speech_recognition as sr
 from threading import Thread
 import rospy
 from std_msgs.msg import String
+from mr_voice.msg import Voice
 
 
 class SpeechToTextNode(object):
@@ -13,7 +14,7 @@ class SpeechToTextNode(object):
         self.lang = rospy.get_param("lang", "yue-Hant-HK")
 
         rospy.Subscriber(self.topic_audio_path, String, self.callback_audio_path)
-        self.pub_text = rospy.Publisher(self.topic_text, String)
+        self.pub_voice = rospy.Publisher(self.topic_text, Voice)
 
         self.sr = sr.Recognizer()
         self.threads = [] 
@@ -41,7 +42,10 @@ class SpeechToTextNode(object):
             rospy.logerr("Could not request results from Voice Recognition service; {0}".format(e))
         rospy.loginfo(f"{path}: {text}")
         if len(text) > 0:
-            self.pub_text.publish(text + "-" + str(direction))
+            voice = Voice()
+            voice.text = text
+            voice.direction = direction
+            self.pub_voice.publish(voice)
         else:
             rospy.logerr("nothing")
 
