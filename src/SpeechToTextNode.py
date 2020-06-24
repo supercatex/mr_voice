@@ -43,6 +43,7 @@ class SpeechToTextNode(object):
         rospy.loginfo(f"{path}: {text}")
         if len(text) > 0:
             voice = Voice()
+            voice.time = rospy.Time.now()
             voice.text = text
             voice.direction = direction
             self.pub_voice.publish(voice)

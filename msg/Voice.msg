@@ -1,2 +1,3 @@
+time time
 string text
-uint32 direction
+uint16 direction
