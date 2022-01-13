@@ -6,5 +6,7 @@ https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_reco
 
 https://github.com/furushchev/respeaker_ros
 
+```bash
 sudo cp -f $(rospack find mr_voice)/config/60-respeaker.rules /etc/udev/rules.d/60-respeaker.rules
 sudo service udev restart
+```
