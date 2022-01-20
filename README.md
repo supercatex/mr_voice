@@ -16,14 +16,14 @@
    # sudo python dfu.py --download 1_channel_firmware.bin
    ```
    - add udev rules
-   ```bash
-   sudo cp -f $(rospack find mr_voice)/config/60-respeaker.rules /etc/udev/rules.d/60-respeaker.rules
-   sudo service udev restart
-   ```
+      ```bash
+      sudo cp -f $(rospack find mr_voice)/config/60-respeaker.rules /etc/udev/rules.d/60-respeaker.rules
+      sudo service udev restart
+      ```
 
 2. SpeechToTextNode.py
    - https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
    - install packages
-   ```bash
-   pip install SpeechRecognition
-   ```
+      ```bash
+      pip install SpeechRecognition
+      ```
