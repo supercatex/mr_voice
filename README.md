@@ -39,5 +39,11 @@
    - https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
    - install packages
       ```bash
-      pip install SpeechRecognition
+      python3 -m pip install SpeechRecognition
+      ```
+
+3. SpeakerNode.py
+   - install packages
+      ```bash
+      python3 -m pip install pyttsx3
       ```
