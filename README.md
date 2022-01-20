@@ -36,15 +36,13 @@
       ```
 
 2. SpeechToTextNode.py
-   - https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
-   - install packages
+   - install SpeechRecognition https://pypi.org/project/SpeechRecognition/
       ```bash
       python3 -m pip install SpeechRecognition
       ```
 
 3. SpeakerNode.py
-   - https://pypi.org/project/pyttsx3/
-   - install packages
+   - install pyttsx3 https://pypi.org/project/pyttsx3/
       ```bash
       python3 -m pip install pyttsx3
       ```
