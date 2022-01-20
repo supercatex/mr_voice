@@ -22,5 +22,4 @@
    ```
 
 2. SpeechToTextNode.py
-
-https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
+   - https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
