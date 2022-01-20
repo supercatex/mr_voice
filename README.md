@@ -43,6 +43,7 @@
       ```
 
 3. SpeakerNode.py
+   - https://pypi.org/project/pyttsx3/
    - install packages
       ```bash
       python3 -m pip install pyttsx3
