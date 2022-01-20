@@ -1,7 +1,7 @@
 # mr_voice
 
-![ReSpeaker Mic Array v2.0](https://files.seeedstudio.com/products/107990053/01.png)
 https://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/
+![ReSpeaker Mic Array v2.0](https://files.seeedstudio.com/wiki/ReSpeaker_Mic_Array_V2/img/Hardware%20Overview.png)
 
 https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
 
