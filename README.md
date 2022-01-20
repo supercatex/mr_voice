@@ -23,6 +23,17 @@
       sudo cp -f $(rospack find mr_voice)/config/60-respeaker.rules /etc/udev/rules.d/60-respeaker.rules
       sudo service udev restart
       ```
+   - install portaudio
+      http://www.portaudio.com/
+      ```bash
+      cd [your portaudio folder]
+      ./configure
+      make
+      sudo make install
+      
+      python3 -m pip install -U pyaudio
+      sudo apt install espeak
+      ```
 
 2. SpeechToTextNode.py
    - https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
