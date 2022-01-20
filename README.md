@@ -1,6 +1,7 @@
 # mr_voice
 
-[![python](https://img.shields.io/badge/python-3.6-brightgreen)]()
+[![python](https://img.shields.io/badge/python-3.6-brightgreen)](https://python.org/)
+[![ros](https://img.shields.io/badge/ros-melodic-brightgreen)](https://ros.org/)
 
 1. RespeakerNode.py -- saving raw audio file
    - https://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/
