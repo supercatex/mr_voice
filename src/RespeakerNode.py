@@ -68,13 +68,13 @@ class RespeakerInterface(object):
                                  idProduct=self.PRODUCT_ID)
         if not self.dev:
             raise RuntimeError("Failed to find Respeaker device")
-        print("Initializing Respeaker device")
+        rospy.loginfo("Initializing Respeaker device")
         self.dev.reset()
         self.pixel_ring = usb_pixel_ring_v2.PixelRing(self.dev)
         self.set_led_think()
         time.sleep(10)  # it will take 10 seconds to re-recognize as audio device
         self.set_led_trace()
-        print("Respeaker device initialized (Version: %s)" % self.version)
+        rospy.loginfo("Respeaker device initialized (Version: %s)" % self.version)
 
     def __del__(self):
         try:
@@ -180,26 +180,26 @@ class RespeakerAudio(object):
 
         # find device
         count = self.pyaudio.get_device_count()
-        print("%d audio devices found" % count)
+        rospy.loginfo("%d audio devices found" % count)
         for i in range(count):
             info = self.pyaudio.get_device_info_by_index(i)
             name = info["name"].encode("utf-8")
             chan = info["maxInputChannels"]
-            print(" - %d: %s" % (i, name))
+            rospy.loginfo(" - %d: %s" % (i, name))
             if str(name).lower().find("respeaker") >= 0:
                 self.available_channels = chan
                 self.device_index = i
-                print("Found %d: %s (channels: %d)" % (i, name, chan))
+                rospy.loginfo("Found %d: %s (channels: %d)" % (i, name, chan))
                 break
         if self.device_index is None:
-            print("Failed to find respeaker device by name. Using default input")
+            rospy.loginfo("Failed to find respeaker device by name. Using default input")
             info = self.pyaudio.get_default_input_device_info()
             self.available_channels = info["maxInputChannels"]
             self.device_index = info["index"]
 
         if self.available_channels != 6:
-            print("%d channel is found for respeaker" % self.available_channels)
-            print("You may have to update firmware.")
+            rospy.loginfo("%d channel is found for respeaker" % self.available_channels)
+            rospy.loginfo("You may have to update firmware.")
         if self.channels is None:
             self.channels = range(self.available_channels)
         else:
@@ -207,7 +207,7 @@ class RespeakerAudio(object):
         if not self.channels:
             raise RuntimeError('Invalid channels %s. (Available channels are %s)' % (
                 self.channels, self.available_channels))
-        print('Using channels %s' % self.channels)
+        rospy.loginfo('Using channels %s' % self.channels)
 
         self.stream = self.pyaudio.open(
             input=True, start=False,
@@ -269,7 +269,7 @@ def on_audio(data, channel):
                 filename = "%s-%d.wav" % (filename, direction)
                 path = os.path.join(audio_dir, filename)
 
-                print("Save to", path, "direction:", direction)
+                rospy.loginfo("Save to %s direction: %s" % (path, direction))
 
                 wf = wave.open(path, "wb")
                 wf.setnchannels(1)
