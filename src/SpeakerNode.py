@@ -6,7 +6,7 @@ from std_msgs.msg import String
 
 
 class Speaker(object):
-    def __init__(self, rate: int = 170, volume: float = 1.0, lang: str = "en-US"):
+    def __init__(self, rate = 170, volume = 1.0, lang = "en-US"):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", rate)
         self.engine.setProperty("volume", volume)
@@ -28,7 +28,7 @@ class Speaker(object):
     def on_end(self, name, completed):
         self.is_running = False
 
-    def say(self, message: str) -> bool:
+    def say(self, message):
         self.buffer.append(message)
         if not self.is_running:
             while len(self.buffer) > 0:
@@ -53,7 +53,7 @@ class SpeakerNode(object):
         rospy.set_param(self.param_is_saying, False)
         rospy.Subscriber(self.topic_say, String, self.callback_say)
 
-    def callback_say(self, msg: String):
+    def callback_say(self, msg):
         rospy.set_param(self.param_is_saying, True)
         is_saying = self.speaker.say(msg.data)
         rospy.set_param(self.param_is_saying, is_saying)
