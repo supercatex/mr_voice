@@ -19,7 +19,7 @@ class SpeechToTextNode(object):
         self.sr = sr.Recognizer()
         self.threads = [] 
 
-    def callback_audio_path(self, msg: String):
+    def callback_audio_path(self, msg):
         t = Thread(target=self._recognize_thread, args=(msg.data,))
         t.start()
 
@@ -34,12 +34,12 @@ class SpeechToTextNode(object):
         with sr.AudioFile(path) as source:
             audio = self.sr.record(source)
         try:
-            rospy.loginfo(f"recognizing file: {path}")
+            rospy.loginfo("recognizing file: %s" % path)
             text = self.sr.recognize_google(audio, language=self.lang)
         except sr.UnknownValueError:
             rospy.logerr("Voice Recognition could not understand audio")
         except sr.RequestError as e:
-            rospy.logerr("Could not request results from Voice Recognition service; {0}".format(e))
+            rospy.logerr("Could not request results from Voice Recognition service; %s" % str(e))
         rospy.loginfo(f"{path}: {text}")
         if len(text) > 0:
             voice = Voice()
