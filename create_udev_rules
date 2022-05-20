@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo cp `rospack find mr_voice`/config/60-respeaker.rules /etc/udev/rules.d
+
+sudo service udev reload
+sudo service udev restart
