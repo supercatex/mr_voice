@@ -40,7 +40,7 @@ class SpeechToTextNode(object):
             rospy.logerr("Voice Recognition could not understand audio")
         except sr.RequestError as e:
             rospy.logerr("Could not request results from Voice Recognition service; %s" % str(e))
-        rospy.loginfo(f"{path}: {text}")
+        rospy.loginfo("%s: %s" % (path, text))
         if len(text) > 0:
             voice = Voice()
             voice.time = rospy.Time.now()
