@@ -84,7 +84,6 @@ def on_audio(data, channel):
         curr = curr / len(is_voice_buf)
         
         if curr < 20:
-            print len(audio_buf)
             if len(audio_buf) > 10:
                 filename = time.strftime("%H%M%S", time.gmtime())
                 filename = "%s-%d.wav" % (filename, 0)
