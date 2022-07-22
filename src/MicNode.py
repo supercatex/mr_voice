@@ -72,7 +72,7 @@ class MicAudio(object):
 
 
 def on_audio(data, channel):
-    global pub, audio_dir, mic_audio, max_buf, is_voice_buf, audio_buf, threshold
+    global pub, audio_dir, mic_audio, max_buf, is_voice_buf, audio_buf
     if channel == 0:
         count = len(data) / 2
         df = "%dh" % count
@@ -83,9 +83,7 @@ def on_audio(data, channel):
         is_voice_buf.append(value)
         curr = curr / len(is_voice_buf)
         
-        # print(curr)
-
-        if curr < threshold:
+        if curr < 20:
             if len(audio_buf) > 10:
                 filename = time.strftime("%H%M%S", time.gmtime())
                 filename = "%s-%d.wav" % (filename, 0)
@@ -111,7 +109,6 @@ if __name__ == "__main__":
 
     max_buf = rospy.get_param("buffer_size", 10)
     audio_dir = rospy.get_param("audio_directory", "/tmp/speech")
-    threshold = rospy.get_param("/mr_voice/voice_threshold", 20)
     
     pub = rospy.Publisher("~audio_path", String, queue_size=1)
 
