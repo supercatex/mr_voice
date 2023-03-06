@@ -20,7 +20,8 @@ class WhisperNode(object):
         self.pub_voice = rospy.Publisher(self.topic_text, Voice, queue_size=10)
         rospy.Rate(1).sleep()
         
-        self.sr = whisper.load_model("base")
+        # tiny, base, small, medium, large
+        self.sr = whisper.load_model("base", download_root="/home/pcms/models/openai/")
         
         
     def callback_audio_path(self, msg):
@@ -28,11 +29,11 @@ class WhisperNode(object):
         
     def run(self):
         while True:
-            rospy.Rate(20).sleep()
+            rospy.Rate(5).sleep()
             if len(self.queue) == 0: continue
             
             path = self.queue.pop(0)
-            print(path)
+            print("%s(%d)" % (path, len(self.queue)))
             
             text = ""
             direction = 0
@@ -44,9 +45,12 @@ class WhisperNode(object):
             try:
                 res = self.sr.transcribe(path, language=self.lang, fp16=False)
                 text = res["text"]
-                # print(res)
                 if len(text) > 0:
                     rospy.loginfo("%s: %s" % (path, text))
+                    for s in res["segments"]:
+                        # print(s)
+                        rospy.loginfo("\t%s (%.2f)" % (s["text"], s["no_speech_prob"]))
+                    
             except Exception as e:
                 rospy.logerr("whisper error: %s" % e)
             
