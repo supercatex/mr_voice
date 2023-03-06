@@ -1,7 +1,7 @@
 <launch>
     <arg name="use_respeaker" default="true" />
 	<node pkg="mr_voice" type="SpeakerNode.py" name="speaker" output="screen">
-        <param name="rate" value="170" />
+        <param name="rate" value="80" />
         <param name="volume" value="1.0" />
         <param name="lang" value="en-US" />
     </node>

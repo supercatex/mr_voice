@@ -10,6 +10,8 @@ import wave
 import rospy
 from std_msgs.msg import String
 import os
+import sys
+
 
 class MicAudio(object):
     def __init__(self, on_audio, channels=None, suppress_error=True):
@@ -83,7 +85,9 @@ def on_audio(data, channel):
         is_voice_buf.append(value)
         curr = curr / len(is_voice_buf)
         
-        # print(curr)
+        # print("\r%.4f" % curr)
+        sys.stdout.write("\r%.4f" % curr)
+        sys.stdout.flush()
 
         if curr < threshold:
             if len(audio_buf) > 10:
@@ -112,6 +116,7 @@ if __name__ == "__main__":
     max_buf = rospy.get_param("buffer_size", 10)
     audio_dir = rospy.get_param("audio_directory", "/tmp/speech")
     threshold = rospy.get_param("/mr_voice/voice_threshold", 20)
+    threshold = 100
     
     pub = rospy.Publisher("~audio_path", String, queue_size=1)
 
