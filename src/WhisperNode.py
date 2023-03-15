@@ -26,6 +26,7 @@ class WhisperNode(object):
         
     def callback_audio_path(self, msg):
         speaking = rospy.get_param("/speaker/is_saying")
+        rospy.sleep(0.5)
         if not speaking:
             self.queue.append(msg.data)
         

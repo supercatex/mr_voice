@@ -14,6 +14,7 @@ class Speaker(object):
         self.is_running = False
         self.buffer = []
         self.output = "/tmp/output.wav"
+        self.param_is_saying = "~is_saying"
 
     def say(self, message):
         self.buffer.append(message)
@@ -27,7 +28,6 @@ class Speaker(object):
                 )
                 self.buffer.pop(0)
                 
-                self.is_running = True
                 f = wave.open(self.output, "rb")
                 p = pyaudio.PyAudio()
                 s = p.open(
@@ -37,6 +37,8 @@ class Speaker(object):
                     output = True
                 )
                 data = f.readframes(1024)
+                self.is_running = True
+                rospy.set_param(self.param_is_saying, True)
                 while data:
                     s.write(data)
                     data = f.readframes(1024)
@@ -44,6 +46,7 @@ class Speaker(object):
                 s.close()
                 p.terminate()
                 self.is_running = False
+                rospy.set_param(self.param_is_saying, False)
             return False
         return True
 
@@ -59,9 +62,7 @@ class SpeakerNode(object):
         rospy.Subscriber(self.topic_say, String, self.callback_say)
 
     def callback_say(self, msg):
-        rospy.set_param(self.param_is_saying, True)
         is_saying = self.speaker.say(msg.data)
-        rospy.set_param(self.param_is_saying, is_saying)
 
 
 if __name__ == "__main__":
