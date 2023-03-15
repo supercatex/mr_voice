@@ -12,7 +12,7 @@ class WhisperNode(object):
     def __init__(self):
         self.topic_audio_path = rospy.get_param("topic_audio_path", "/respeaker/audio_path")
         self.topic_text = rospy.get_param("topic_text", "~text")
-        self.lang = rospy.get_param("lang", "zh")
+        self.lang = rospy.get_param("lang", "en")
         rospy.loginfo("Language: %s" % self.lang)
 
         self.queue = []
@@ -25,7 +25,9 @@ class WhisperNode(object):
         
         
     def callback_audio_path(self, msg):
-        self.queue.append(msg.data)
+        speaking = rospy.get_param("/speaker/is_saying")
+        if not speaking:
+            self.queue.append(msg.data)
         
     def run(self):
         while True:

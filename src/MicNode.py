@@ -116,7 +116,7 @@ if __name__ == "__main__":
     max_buf = rospy.get_param("buffer_size", 10)
     audio_dir = rospy.get_param("audio_directory", "/tmp/speech")
     threshold = rospy.get_param("/mr_voice/voice_threshold", 20)
-    threshold = 100
+    threshold = 3000
     
     pub = rospy.Publisher("~audio_path", String, queue_size=1)
 
@@ -131,3 +131,4 @@ if __name__ == "__main__":
     mic_audio.start()
     
     rospy.spin()
+    
