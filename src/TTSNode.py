@@ -15,11 +15,13 @@ class Speaker(object):
         self.buffer = []
         self.output = "/tmp/output.wav"
         self.param_is_saying = "~is_saying"
+        self.processing = False
 
     def say(self, message):
         self.buffer.append(message)
-        if not self.is_running:
+        if not self.processing:
             while len(self.buffer) > 0:
+                self.processing = True
                 self.tts.tts_to_file(
                     text = message, 
                     speaker = self.tts.speakers[0], 
@@ -47,6 +49,7 @@ class Speaker(object):
                 p.terminate()
                 self.is_running = False
                 rospy.set_param(self.param_is_saying, False)
+                self.processing = False
             return False
         return True
 
